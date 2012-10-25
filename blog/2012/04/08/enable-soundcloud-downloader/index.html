@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Itzki::Blog</title>
+  <title>Enable SoundCloud downloader - Itzki::Blog</title>
   <meta name="author" content="itzki">
 
   
-  <meta name="description" content="This entry explain a very particular case. It&#8217;s how to make Octopress page with clean commit log by sub GitHub account. SSH config At first, if &hellip;">
+  <meta name="description" content="I like SoundCloud. Recently, downloading mp3 streaming file (of course, unofficial) is not working on Chrome. I use this userscript.
+(Soundcloud &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://itzki.github.com/">
+  <link rel="canonical" href="http://itzki.github.com/blog/2012/04/08/enable-soundcloud-downloader/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,149 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/04/09/octopress-by-sub-github-account/">Octopress by Sub GitHub Account</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-09T18:35:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This entry explain a very particular case. It&#8217;s how to make <a href="http://octopress.org">Octopress</a> page with clean commit log by sub GitHub account.</p>
-
-<h2>SSH config</h2>
-
-<p>At first, if you use multiple GitHub accounts, you need to edit .ssh/config like below.</p>
-
-<figure class='code'><figcaption><span>.ssh/config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Host github.com <span class="c">#main account</span>
-</span><span class='line'>  IdentityFile    ~/.ssh/user.pem
-</span><span class='line'>
-</span><span class='line'>Host github-user2 <span class="c">#sub account</span>
-</span><span class='line'>  IdentityFile    ~/.ssh/user2.pem
-</span><span class='line'>
-</span><span class='line'>Host github*
-</span><span class='line'>  User            git
-</span><span class='line'>  HostName        github.com
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Setup GitHub Pages</h2>
-
-<p>Next, you should create remote master branch. It&#8217;s temporary.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir user2.github.com
-</span><span class='line'><span class="nb">cd </span>user2.github.com
-</span><span class='line'>git init
-</span><span class='line'>touch README
-</span><span class='line'>git commit -am <span class="s2">&quot;First commit&quot;</span>
-</span><span class='line'>git remote add origin git@github-user2:user2/user2.github.com.git
-</span><span class='line'>git push -u origin master
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Setup Octopress</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> ..
-</span><span class='line'>git clone git://github.com/imathis/octopress.git
-</span><span class='line'><span class="nb">cd </span>octopress
-</span><span class='line'>git config --local --add user.name user2
-</span><span class='line'>git config --local --add user.email user2@example.com
-</span><span class='line'>bundle install --path<span class="o">=</span>vendor/bundle
-</span><span class='line'>bundle <span class="nb">exec </span>rake setup_github_pages
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This time, you should input a hostname of sub account.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Enter the <span class="nb">read</span>/write url <span class="k">for </span>your repository: git@github-user2:user2/user2.github.com.git
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Change to your sub account</h2>
-
-<p>Octopress use &#8220;_deploy&#8221; dir for push to GitHub pages. But in a default, it set as main (global) user. So fix like below.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>_deploy/
-</span><span class='line'>git config --local --add user.name user2
-</span><span class='line'>git config --local --add user.email user2@example.com
-</span><span class='line'>git commit --amend --author<span class="o">=</span><span class="s1">&#39;user2 &lt;user2@example.com&gt;&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Ready to deploy.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> ..
-</span><span class='line'>bundle <span class="nb">exec </span>rake gen_deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can get clean history.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/08/enable-soundcloud-downloader/">Enable SoundCloud Downloader</a></h1>
+      <h1 class="entry-title">Enable SoundCloud Downloader</h1>
     
     
       <p class="meta">
@@ -227,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><p>I like <a href="http://soundcloud.com/">SoundCloud</a>.</p>
+<div class="entry-content"><p>I like <a href="http://soundcloud.com/">SoundCloud</a>.</p>
 
 <p>Recently, downloading mp3 streaming file (of course, unofficial) is not working on Chrome. I use this userscript.
 (<a href="http://userscripts.org/scripts/show/96022">Soundcloud Super +2: Downloader + Recommender for Greasemonkey</a>)</p>
@@ -268,22 +132,16 @@
 
 <p>It works!</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/08/first-post/">First Post</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">itzki</span></span>
+
+      
 
 
 
@@ -295,33 +153,34 @@
   
 
 
-<time datetime="2012-04-08T16:46:00+09:00" pubdate data-updated="true">Apr 8<span>th</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-04-08T19:09:00+09:00" pubdate data-updated="true">Apr 8<span>th</span>, 2012</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>My new blog started.</p>
-
-<p>Yesterday, I tried <a href="http://itzki.posterous.com/">Posterous</a>, but it had some problems. Uploaded images was not appeared. And syntax highlighting did not colorize.</p>
-
-<p>So this time, I try <a href="http://octopress.org/">Octopress</a>. Now writing as draft, I feel quite good.</p>
-
-<p>Hopefully, I want to continue blogging.</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://itzki.github.com/blog/2012/04/08/enable-soundcloud-downloader/" data-via="itzki" data-counturl="http://itzki.github.com/blog/2012/04/08/enable-soundcloud-downloader/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/08/first-post/" title="Previous Post: First post">&laquo; First post</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/04/09/octopress-by-sub-github-account/" title="Next Post: Octopress by sub GitHub account">Octopress by sub GitHub account &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -346,7 +205,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/itzki">@itzki</a> on GitHub
@@ -376,7 +235,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -395,6 +254,7 @@
 
   
 </aside>
+
 
     </div>
   </div>

@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Itzki::Blog</title>
+  <title>Octopress by sub GitHub account - Itzki::Blog</title>
   <meta name="author" content="itzki">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://itzki.github.com/">
+  <link rel="canonical" href="http://itzki.github.com/blog/2012/04/09/octopress-by-sub-github-account/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,15 +62,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/04/09/octopress-by-sub-github-account/">Octopress by Sub GitHub Account</a></h1>
+      <h1 class="entry-title">Octopress by Sub GitHub Account</h1>
     
     
       <p class="meta">
@@ -93,7 +90,7 @@
   </header>
 
 
-  <div class="entry-content"><p>This entry explain a very particular case. It&#8217;s how to make <a href="http://octopress.org">Octopress</a> page with clean commit log by sub GitHub account.</p>
+<div class="entry-content"><p>This entry explain a very particular case. It&#8217;s how to make <a href="http://octopress.org">Octopress</a> page with clean commit log by sub GitHub account.</p>
 
 <h2>SSH config</h2>
 
@@ -193,97 +190,16 @@
 
 <p>You can get clean history.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/08/enable-soundcloud-downloader/">Enable SoundCloud Downloader</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">itzki</span></span>
 
-<time datetime="2012-04-08T19:09:00+09:00" pubdate data-updated="true">Apr 8<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I like <a href="http://soundcloud.com/">SoundCloud</a>.</p>
-
-<p>Recently, downloading mp3 streaming file (of course, unofficial) is not working on Chrome. I use this userscript.
-(<a href="http://userscripts.org/scripts/show/96022">Soundcloud Super +2: Downloader + Recommender for Greasemonkey</a>)</p>
-
-<p>At first, I couldn&#8217;t find the cause. But finally, I got it.</p>
-
-<p>Following code is a part of Javascript at SoundCloud.</p>
-
-<figure class='code'><figcaption><span>base.js </span><a href='http://a1.sndcdn.com/javascripts/base.js'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;DOMNodeInserted&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">srcElement</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">srcElement</span><span class="p">.</span><span class="nx">outerHTML</span> <span class="o">&amp;&amp;</span>
-</span><span class='line'>        <span class="nx">e</span><span class="p">.</span><span class="nx">srcElement</span><span class="p">.</span><span class="nx">outerHTML</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;soundcloud.com/stream&quot;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">srcElement</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That makes us rejection of downloading. So we need to remove the behavior.</p>
-
-<p>In the case of &#8220;SoundCloud Super +2&#8221;, add following code on the userscript.</p>
-
-<figure class='code'><figcaption><span>example of &#8220;SoundCloud Super +2&#8221;</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">contentEval</span><span class="p">(</span><span class="s1">&#39;$(document).unbind(&quot;DOMNodeInserted&quot;);&#39;</span><span class="p">);</span> <span class="c1">//add</span>
-</span><span class='line'><span class="nx">contentEval</span><span class="p">(...);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Re-install edited userscript, then visit SoundCloud.</p>
-
-<p><img src="/images/20120408.jpg" alt="soundcloud" /></p>
-
-<p>It works!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/08/first-post/">First Post</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -295,33 +211,32 @@
   
 
 
-<time datetime="2012-04-08T16:46:00+09:00" pubdate data-updated="true">Apr 8<span>th</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-04-09T18:35:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>My new blog started.</p>
-
-<p>Yesterday, I tried <a href="http://itzki.posterous.com/">Posterous</a>, but it had some problems. Uploaded images was not appeared. And syntax highlighting did not colorize.</p>
-
-<p>So this time, I try <a href="http://octopress.org/">Octopress</a>. Now writing as draft, I feel quite good.</p>
-
-<p>Hopefully, I want to continue blogging.</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://itzki.github.com/blog/2012/04/09/octopress-by-sub-github-account/" data-via="itzki" data-counturl="http://itzki.github.com/blog/2012/04/09/octopress-by-sub-github-account/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/08/enable-soundcloud-downloader/" title="Previous Post: Enable SoundCloud downloader">&laquo; Enable SoundCloud downloader</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -346,7 +261,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/itzki">@itzki</a> on GitHub
@@ -376,7 +291,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -395,6 +310,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
